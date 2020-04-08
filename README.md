@@ -41,8 +41,23 @@ webpack4.0
   }
 
 ### 雪碧图loader
+基于spritesmith写的雪碧图loader
+
+	use: [
+		'css-loader', 
+		{ loader: path.resolve('./loaders/sprite-loader.js'),
+		  options: {
+		    folderName: "image"//图片文件夹名称
+		  }
+		}
+	    ]
 
 ### zip插件
+基于jszip写的zip插件
+
+	new ZipPlugin({
+	    filename:'offline'//打包出的文件夹名称
+	})
 
 ## 关于我理解的webpack
 本质上是一种事件流机制，工作流就是将各插件串联在一起。
