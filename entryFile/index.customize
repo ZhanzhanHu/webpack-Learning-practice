@@ -1,0 +1,16 @@
+<template id='teplateId'>
+  <div>asd
+    <div id='xxxx'>
+      <p>asdsad</p>
+      <div>dddddddd</div>
+    </div>
+  </div>
+</template>
+<script>
+
+</script>
+<style>
+div{
+  background:#fff
+}
+</style>

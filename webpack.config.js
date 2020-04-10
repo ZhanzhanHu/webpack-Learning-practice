@@ -8,10 +8,13 @@ var extractCSS = new ExtractTextPlugin('[name].css');
 var webpack = require('webpack') //内置插件
 module.exports = {
   mode: 'development',
-  entry:'./entryFile/index.js',
+  entry:{
+    index:'./entryFile/index.js',
+    customize:'./entryFile/index.customize'
+  },
   output:{
-    filename: "main.js",
-    path: path.resolve(__dirname, 'dist')
+    filename: "js/[name].js",
+    path: path.resolve(__dirname, 'dist'),
     //chunkFilename:'[name].js'// 设置按需加载后的chunk名字  import('./b').then(function(module){})
     //publicPath:'dist/'  // 设置基础路径
   },
@@ -125,6 +128,14 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.customize$/,
+        use: [
+          {
+            loader: require.resolve('./loaders/customize-loader.js'),
+          }
+        ]
       }
     ]
   },
@@ -133,12 +144,27 @@ module.exports = {
       filename:'offline'
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),//忽略打包引入插件，可手动在文件中添加、减少文件体积
-    new HtmlWebpackPlugin({//自动将编译好的js插入相应html的插件
-      template: "./entryFile/index.html",
-      filename: 'index.html',
-    }),
     new webpack.NamedModulesPlugin(),//打印更新的模块路径
     new webpack.HotModuleReplacementPlugin(),//支持热更新插件
+    new HtmlWebpackPlugin({//自动将编译好的js插入相应html的插件
+      filename: 'customize.html',
+      template: "./entryFile/index.html",
+      hash: true,
+      chunks: ['customize']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './entryFile/index.html',
+      hash: true,
+      chunks: ['index'],
+      // minify: {
+      //   removeAttributeQuotes: true,
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeScriptTypeAttributes: true,
+      //   removeStyleLinkTypeAttributes: true
+      // }
+    }),
     new CleanWebpackPlugin(),//清除webpack重复打包插件
     extractCSS,
     // extractLESS,
