@@ -60,7 +60,7 @@ webpack4.0
 	})
 
 ### DSL-loader
-解析自定义的customize文件，实现简单的状态机（13个），最后将真实的dom节点渲染在页面上
+解析自定义的customize文件，实现简单的状态机（13个），最后将真实的dom节点渲染在页面上  
 状态机参考 https://whatwg-cn.github.io/html
 
 ## 关于我理解的webpack
